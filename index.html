@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Student-friendly knowledge distillation for generative language model">
+  <meta name="keywords" content="PromptKD, Knowledge Distillation, LLM, Student-friendly Knowledge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PromptKD: Distilling Student-Friendly Knowledge for Generative Language Models via Prompt Tuning</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({            
+        tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}            
+    });
+  </script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-MML-AM_CHTML' async></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">PromptKD:<br>Distilling Student-Friendly Knowledge<br>for Generative Language Models via Prompt Tuning</h1>
+          <div class="is-size-4 publication-authors">
+            <span class="author-block">EMNLP 2024 Findings</span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://www.linkedin.com/in/gyeongman-kim-592257225/">Gyeongman Kim</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=lk0kPegAAAAJ">Doohyuk Jang</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=UWO1mloAAAAJ&hl=ko&oi=sra">Eunho Yang</a><sup>1,2</sup>
+            <!-- <span class="author-block">
+              <a href="mailto:gmkim@kaist.ac.kr">Gyeongman Kim<sup>1</sup></a>,</span>
+            <span class="author-block">
+              <a href="mailto:shimazing@kaist.ac.kr">Hajin Shim<sup>1</sup></a>,</span>
+            <span class="author-block">
+              <a href="mailto:hyunsu1125.kim@navercorp.com">Hyunsu Kim<sup>2</sup></a>,</span>
+            <span class="author-block">
+              <a href="mailto:yunjey.choi@navercorp.com">Yunjey Choi<sup>2</sup></a>,</span>
+            <span class="author-block">
+              <a href="mailto:jhkim.ai@navercorp.com">Junho Kim<sup>2</sup></a>,</span>
+            <span class="author-block">
+              <a href="https://sites.google.com/site/yangeh/">Eunho Yang<sup>1,3</sup></a> -->
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Korea Advanced Institute of Science and Technology (KAIST), South Korea</span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <!-- <span class="author-block"><sup>2</sup>NAVER AI Lab &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> -->
+            <span class="author-block"><sup>2</sup>AITRICS, South Korea</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+             <!-- <span class="link-block">
+               <a href="https://openaccess.thecvf.com/content/CVPR2023/html/Kim_Diffusion_Video_Autoencoders_Toward_Temporally_Consistent_Face_Video_Editing_via_CVPR_2023_paper.html"
+                  class="external-link button is-normal is-rounded is-dark">
+                 <span class="icon">
+                     <i class="fas fa-file-pdf"></i>
+                 </span>
+                 <span>Paper</span>
+               </a>
+             </span> -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2402.12842"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=ISawoMRNuRU"
+                  class="external-link button is-normal is-rounded is-dark">
+                 <span class="icon">
+                     <i class="fab fa-youtube"></i>
+                 </span>
+                 <span>Video</span>
+               </a>
+             </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/gmkim-ai/PromptKD"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- Slides Link. -->
+              <!-- <span class="link-block">
+                <a href="https://nbviewer.org/github/Diff-Video-AE/Diff-Video-AE.github.io/blob/main/static/images/slides.pdf"
+                  class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Slides</span>
+                  </a>
+              </span> -->
+              <!-- <p>
+              This page contains many wide videos which may not display well on a cellphone. Viewing on browser is recommended
+              </p> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Teaser -->
+<section class="hero">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+    <h2 class="title is-3">TL;DR</h2>
+    <h2 class="title is-5">We propose PromptKD to distill student-friendly knowledge through prompt tuning and<br>demonstrate for the first time that such knowledge is effective even in generative language models.</h2>
+    <div class="hero-body">
+      <img src="static/images/gpt_rougel.pdf"/>
+      <p>Figure. Comparison of instruction-following performance of KD methods using the GPT-2 model family. Owing to the student-friendly knowledge, our PromptKD outperforms others with only an additional 11K parameters. Dashed reference line represents the performance of the teacher model.</p>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- Abstract -->
+<section class="hero is-light">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <br>
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          Recent advancements in large language models (LLMs) have raised concerns about inference costs, increasing the need for research into model compression. 
+          While knowledge distillation (KD) is a prominent method for this, research on KD for generative language models like LLMs is relatively sparse, and the approach of distilling student-friendly knowledge, which has shown promising performance in KD for classification models, remains unexplored in generative language models. 
+          To explore this approach, we propose PromptKD, a simple yet effective method that utilizes prompt tuning - for the first time in KD - to enable generative language models to transfer student-friendly knowledge. 
+          Unlike previous works in classification that require fine-tuning the entire teacher model for extracting student-friendly knowledge, PromptKD achieves similar effects by adding a small number of prompt tokens and tuning only the prompt with student guidance. 
+          Extensive experiments on instruction-following datasets show that PromptKD achieves state-of-the-art performance while adding only 0.0007% of the teacher's parameters as prompts. 
+          Further analysis suggests that distilling student-friendly knowledge alleviates exposure bias effectively throughout the entire training process, leading to performance enhancements.
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Method overview -->
+<section class="hero">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <br>
+        <h2 class="title is-3">Method Overview</h2>
+        <div class="column">
+          <img src="static/images/main_figure.pdf"/>
+          <br>
+          <!-- <h2 class="subtitle has-text-centered">Overview of our PromptKD</h2> -->
+        </div>
+        <br>
+        <div class="content has-text-justified">
+          Our PromptKD is a knowledge distillation method designed for instruction-following tasks in generative language models. 
+          It introduces soft prompts that are prepended to the teacher's input, guiding the teacher to extract knowledge at a level similar to the student's for adaptive teaching.
+          The process consists of three steps. 
+          First, the student generates responses that are treated as training data (pseudo-targets) to address exposure bias by incorporating the model's own outputs into training. 
+          Second, the prompt is updated by minimizing the KL divergence loss, encouraging the teacher to generate responses at a similar level to the student. 
+          Since the teacher's output distribution changes due to the emergence of prompts can lead to instability in the early stages of prompt training, apply a normalization loss here.
+          Finally, the updated prompt facilitates distillation by minimizing the discrepancy between teacher and student outputs, ensuring the student learns effectively from the teacher's student-friendly knowledge.
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Results -->
+<section class="hero is-light">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <br>
+        <h2 class="title is-3">Main Results</h2>
+        <div class="column">
+          <img src="static/images/Results.png" width="600"/>
+          <br>
+          <p>Table. Evaluation results on 5 instruction-following datasets. †Results surpass those of the teacher.</p>
+        </div>
+        <br>
+        <div class="content has-text-justified">
+          PromptKD demonstrates state-of-the-art performance in instruction-following tasks across five datasets, outperforming other knowledge distillation baselines and showcasing strong generalization ability on four additional datasets not used in training. 
+          It consistently surpasses baseline methods across different model sizes and families, including outperforming MiniLLM, which incorporates language modeling loss. 
+          Notably, PromptKD is the only method to outperform the teacher on all datasets, highlighting the effectiveness of modifying the teacher to extract student-friendly knowledge for generation tasks. 
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Results -->
+<section class="hero">
+  <div class="container">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <br>
+        <h2 class="title is-3">Analysis</h2>
+        <div class="column">
+          <img src="static/images/exposure_bias.png"/>
+          <br>
+          <p>Figure. The measurement of exposure bias. Excess accumulated error (ExAccErr) is measured with respect to generation steps and training progress, where values closer to 0 indicate alleviation of exposure bias.</p>
+        </div>
+        <br>
+        <div class="content has-text-justified">
+          The figure illustrates ExAccErr over generation steps and its variation up to 50 steps during training. 
+          In part (a), ExAccErr increases for most methods as generation length grows, indicating accumulated exposure bias. 
+          GKD reduces this error by using student-generated responses but still shows a gap for the teacher's oracle response. 
+          PromptKD, however, maintains near-zero ExAccErr, demonstrating its superior ability to alleviate exposure bias. 
+          In part (b), ExAccErr is measured across early training stages, where PromptKD, MiniLLM, and GKD consistently show lower ExAccErr than other methods, with PromptKD maintaining the most stable and minimal values, effectively reducing exposure bias throughout training. 
+        </div>
+        <br>
+        <div class="column">
+          <img src="static/images/sample.png" width="800"/>
+          <br>
+          <p>Table. Qualitative results of generated response from the Dolly validation set with and without using prompts for the Llama-13B teacher. A teacher with a prompt generates a response more similar to that of the student.</p>
+        </div>
+        <br>
+        <div class="content has-text-justified">
+          To understand how the prompt affects the teacher model, we compared the responses generated by the teacher with and without the prompt, alongside the student model's output. 
+          The results show that the original teacher generates more complex responses, while the prompt-modified teacher produces simpler, student-friendly responses that closely align with the student's output. 
+          Despite being simpler, these responses remain accurate, demonstrating how the prompt effectively tailors the teacher's output to be more comprehensible for the student.
+          Additionally, quantitative results confirm that the teacher's output becomes more similar to the student's while maintaining sentence quality. For more details, please refer to the paper.
+        </div>
+        <br>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero is-light" id="BibTeX">
+  <br>
+  <div class="container content">
+    <h2 class="title">BibTeX</h2>
+    <p>If you find our work useful, please cite our paper:</p>
+    <pre><code>@inproceedings{kim-etal-2024-promptkd,
+      author={Kim, Gyeongman and Jang, Doohyuk and Yang, Eunho},
+      title={PromptKD: Distilling Student-Friendly Knowledge for Generative Language Models via Prompt Tuning},
+      booktitle={Findings of the 2024 Conference on Empirical Methods in Natural Language Processing (Findings of EMNLP)},
+      year={2024}
+    }
+    </code></pre>
+</div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/abs/2212.02802">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/man805/Diffusion-Video-Autoencoders" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            Website source code based on the <a href="https://nerfies.github.io/"> Nerfies</a> project page. If you want to reuse their <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a>, please credit them appropriately.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
