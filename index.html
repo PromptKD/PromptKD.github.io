@@ -215,7 +215,7 @@
         <br>
         <div class="content has-text-justified">
           PromptKD demonstrates state-of-the-art performance in instruction-following tasks across five datasets, outperforming other knowledge distillation baselines and showcasing strong generalization ability on four additional datasets not used in training. 
-          It consistently surpasses baseline methods across different model sizes and families, including outperforming MiniLLM, which incorporates language modeling loss. 
+          It consistently surpasses baseline methods across different model sizes and families, including outperforming MiniLLM, which additionally uses language modeling loss computed by the corpus used for pre-training (PromptKD does not use this loss).
           Notably, PromptKD is the only method to outperform the teacher on all datasets, highlighting the effectiveness of modifying the teacher to extract student-friendly knowledge for generation tasks. 
         </div>
         <br>
