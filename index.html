@@ -190,7 +190,7 @@
           The process consists of three steps. 
           First, the student generates responses that are treated as training data (pseudo-targets) to address exposure bias by incorporating the model's own outputs into training. 
           Second, the prompt is updated by minimizing the KL divergence loss, encouraging the teacher to generate responses at a similar level to the student. 
-          Since the teacher's output distribution changes due to the emergence of prompts can lead to instability in the early stages of prompt training, apply a normalization loss here.
+          Since the teacher's output distribution changes due to the emergence of prompts can lead to instability in the early stages of prompt training, apply a regularization loss here.
           Finally, the updated prompt facilitates distillation by minimizing the discrepancy between teacher and student outputs, ensuring the student learns effectively from the teacher's student-friendly knowledge.
         </div>
         <br>
