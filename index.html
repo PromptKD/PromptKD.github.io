@@ -187,7 +187,7 @@
         <div class="content has-text-justified">
           Our PromptKD is a knowledge distillation method designed for instruction-following tasks in generative language models. 
           It introduces soft prompts that are prepended to the teacher's input, guiding the teacher to extract knowledge at a level similar to the student's for adaptive teaching.
-          The process consists of three steps. 
+          Each iteration in the training phase consists of three steps. 
           First, the student generates responses that are treated as training data (pseudo-targets) to address exposure bias by incorporating the model's own outputs into training. 
           Second, the prompt is updated by minimizing the KL divergence loss, encouraging the teacher to generate responses at a similar level to the student. 
           Since the teacher's output distribution changes due to the emergence of prompts can lead to instability in the early stages of prompt training, apply a regularization loss here.
